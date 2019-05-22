@@ -1,3 +1,7 @@
+.idea
+/target
+2019S1-PCONC-TP-Monitores.iml
+TP-Monitores.iml
 # Compiled class file
 *.class
 
