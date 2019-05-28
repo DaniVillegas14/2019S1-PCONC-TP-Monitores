@@ -1,8 +1,8 @@
 import java.util.ArrayList;
 
 
-public class Buffer {
-    ArrayList<Object> queue= new ArrayList<Object>();
+public class Buffer<T> {
+    ArrayList<T> queue= new ArrayList<T>();
     private int tamanio;
 
     public Buffer(int tamanio) {
@@ -10,7 +10,7 @@ public class Buffer {
         this.tamanio = tamanio;
     }
 
-    synchronized public void pop(){
+    synchronized public T pop(){
         while(this.queue.size() == 0){
             try {
                 this.wait();
@@ -18,12 +18,12 @@ public class Buffer {
                 e.printStackTrace();
             }
         }
-        this.queue.remove(0);
         System.out.println("Se saco algo del buffer");
         notifyAll();
+        return this.queue.remove(0);
     }
 
-    synchronized public void enqueue(Integer n) {
+    synchronized public void enqueue(T elemento){
         while(this.queue.size() >= tamanio){
             try {
                 wait();
@@ -31,8 +31,8 @@ public class Buffer {
                 e.printStackTrace();
             }
         }
-        this.queue.add(n);
-        System.out.println("Se encolo : " + n);
+        this.queue.add(elemento);
+        System.out.println("Se encolo : " + elemento);
         notify();
     }
 }
