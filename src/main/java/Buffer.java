@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 
 public class Buffer {
-    ArrayList<Integer> queue= new ArrayList<Integer>();
+    ArrayList<Object> queue= new ArrayList<Object>();
     private int tamanio;
 
     public Buffer(int tamanio) {
@@ -10,22 +10,21 @@ public class Buffer {
         this.tamanio = tamanio;
     }
 
-    synchronized public Integer pop() {
-            while(this.queue.size() == 0){
-                try {
-                    this.wait();
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
+    synchronized public void pop(){
+        while(this.queue.size() == 0){
+            try {
+                this.wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
             }
+        }
+        this.queue.remove(0);
         System.out.println("Se saco algo del buffer");
-        notify();
-        return this.queue.remove(0);
-
+        notifyAll();
     }
 
     synchronized public void enqueue(Integer n) {
-        while(this.queue.size() == tamanio){
+        while(this.queue.size() >= tamanio){
             try {
                 wait();
             } catch (InterruptedException e) {

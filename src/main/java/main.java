@@ -1,6 +1,6 @@
 class main {
     public static void main (String [ ] args) {
-        Buffer buffer = new Buffer(10);
+        Buffer buffer = new Buffer(1000000000);
         Productor p1 = new Productor(buffer);
         Productor p2 = new Productor(buffer);
         Consumidor c1 = new Consumidor(buffer);
