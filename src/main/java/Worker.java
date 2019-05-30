@@ -2,7 +2,6 @@
 public class Worker extends Thread {
 
     private Buffer<Runnable> buffer;
-
     public Worker(Buffer<Runnable> buffer) {
         this.buffer = buffer;
     }
@@ -12,6 +11,8 @@ public class Worker extends Thread {
         while(true) {
             buffer.pop().run();
         }
+
     }
+
 }
 

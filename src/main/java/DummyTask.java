@@ -7,6 +7,6 @@ public class DummyTask implements Runnable {
     }
 
     public void run() {
-        System.out.println("Dummy Task "+name+" is working heavily!!!");
+        System.out.println("Dummy Task " + name + " is working heavily!!!");
     }
 }
