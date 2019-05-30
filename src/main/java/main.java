@@ -1,8 +1,3 @@
-import org.w3c.dom.ranges.Range;
-
-import java.awt.font.NumericShaper;
-import java.util.List;
-
 class main {
 
     public static void main(String[] args) throws InterruptedException {
