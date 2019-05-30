@@ -1,14 +1,12 @@
 public class PoisonPill implements Runnable {
 
-    private Worker worker;
 
-    public PoisonPill(Worker worker) {
-        this.worker = worker;
+    public PoisonPill() {
     }
 
     @Override
     public void run() {
-       this.worker.detener();
+        throw new PoisonException("Poison Pill consumida, un worker se detuvo.");
     }
 
 }

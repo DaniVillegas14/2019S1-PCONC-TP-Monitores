@@ -1,6 +1,11 @@
+import org.w3c.dom.ranges.Range;
+
+import java.awt.font.NumericShaper;
+import java.util.List;
+
 class main {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws InterruptedException {
         /***Prueba para Buffer*/
       /*  Buffer buffer = new Buffer<Integer>(1000000000);
         Productor p1 = new Productor(buffer);
@@ -30,22 +35,36 @@ class main {
 
         worker.start();
     } */
+/*
+        *//***Prueba para PoisonPill*//*
+        Buffer<Runnable>  runnableBuffer = new Buffer<>(10);
+              Productor productor = new TaskProductor(runnableBuffer);
+              Productor productor2 = new TaskProductor(runnableBuffer);
+              Worker worker = new Worker(runnableBuffer);
+              runnableBuffer.enqueue(new DummyTask("Usain Bolt"));
+              runnableBuffer.enqueue(new DummyTask("Rayo Mcqueen"));
+              runnableBuffer.enqueue(new PoisonPill());
+              runnableBuffer.enqueue(new DummyTask("Dani"));
+              runnableBuffer.enqueue(new DummyTask("Nico"));
 
-        /***Prueba para PoisonPill*/
-        Buffer<Runnable>  runnableBuffer = new Buffer<Runnable>(10);
-        Productor productor = new TaskProductor(runnableBuffer);
-        Productor productor2 = new TaskProductor(runnableBuffer);
-        Worker worker = new Worker(runnableBuffer);
-        runnableBuffer.enqueue(new DummyTask("Usain Bolt"));
-        runnableBuffer.enqueue(new DummyTask("Rayo Mcqueen"));
-        runnableBuffer.enqueue(new DummyTask("Dani"));
-        runnableBuffer.enqueue(new DummyTask("Nico"));
-        runnableBuffer.enqueue(new PoisonPill(worker));
+              productor.start();
+              productor2.start();
 
-        productor.start();
-        productor2.start();
+              worker.start();*/
+      /**Prueba para ThreadPool*/
+          ThreadPool threadPool = new ThreadPool(8,10);
+          ThreadPoolTaskProductor productor = new ThreadPoolTaskProductor(threadPool);
 
-        worker.start();
+          productor.start();
+          Thread.sleep(4000);
+          lanzarPoisonPills(threadPool,8);
+
     }
+
+  private static void lanzarPoisonPills(ThreadPool threadPool,int cantidad) {
+    for (int i = 0; i <cantidad ; cantidad++) {
+      threadPool.launch(new PoisonPill());
+    }
+  }
 
 }
