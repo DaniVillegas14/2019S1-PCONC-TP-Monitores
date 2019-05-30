@@ -7,7 +7,7 @@ public class Productor extends Thread{
     }
 
     @Override
-    synchronized public void run() {
+    public void run() {
     while (true ){
             buffer.enqueue(contador);
             contador++;

@@ -7,8 +7,8 @@ public class TaskProductor extends Productor {
     }
 
     @Override
-    public synchronized void run() {
-        while (true){
+    public void run() {
+        while (true) {
             runnableBuffer.enqueue(new DummyTask("Created by TaskProductor"));
         }
     }
