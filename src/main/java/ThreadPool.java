@@ -23,4 +23,10 @@ public class ThreadPool {
         runnableBuffer.enqueue(task);
     }
 
+    public void stop(){
+        for (int i = 0; i < workers.size(); i++) {
+            runnableBuffer.enqueue(new PoisonPill());
+        }
+    }
+
 }

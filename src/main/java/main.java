@@ -52,16 +52,9 @@ class main {
 
           productor.start();
           Thread.sleep(4000);
-          lanzarPoisonPills(threadPool,8);
-
+          threadPool.stop();
+          productor.stop(1);
     }
-
-  private static void lanzarPoisonPills(ThreadPool threadPool,int cantidad) {
-    for (int i = 0; i <cantidad ; cantidad++) {
-      threadPool.launch(new PoisonPill());
-    }
-  }
-
 }
 
 
