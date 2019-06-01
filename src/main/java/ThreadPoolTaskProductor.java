@@ -7,12 +7,13 @@ public class ThreadPoolTaskProductor extends Thread {
         this.threadPool = threadPool;
     }
 
-    public synchronized void run() {
+    public void run() {
         while (encendido){
             this.threadPool.launch(new DummyTask("Created By " + this.toString()));
         }
     }
-    public void stop(int n){
+
+    public void stopThread(){
         encendido = false;
     }
 

@@ -46,6 +46,7 @@ class main {
               productor2.start();
 
               worker.start();*/
+
       /**Prueba para ThreadPool*/
           ThreadPool threadPool = new ThreadPool(8,10);
           ThreadPoolTaskProductor productor = new ThreadPoolTaskProductor(threadPool);
@@ -53,8 +54,9 @@ class main {
           productor.start();
           Thread.sleep(4000);
           threadPool.stop();
-          productor.stop(1);
+          productor.stopThread();
     }
+
 }
 
 

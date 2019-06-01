@@ -19,11 +19,11 @@ public class ThreadPool {
             workers.add(new Worker(runnableBuffer));
         }
     }
-    public void launch(Runnable task){
+    synchronized public void launch(Runnable task){
         runnableBuffer.enqueue(task);
     }
 
-    public void stop(){
+    synchronized public void stop(){
         for (int i = 0; i < workers.size(); i++) {
             runnableBuffer.enqueue(new PoisonPill());
         }
