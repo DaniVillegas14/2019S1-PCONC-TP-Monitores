@@ -9,30 +9,27 @@ public class ConcurRadixSort {
         this.numerosDeThreads = numerosDeThreads;
     }
 
-    public List<Integer> radixSort(List<Integer> list) {
-        List<List<Integer>> aux;
-        List<Integer> result = new ArrayList<Integer>();
-        for(int i = 0;i < 32;++i) {
-            aux = split(list,i);
-            result.addAll(aux.get(0));
-            result.addAll(aux.get(1));
+    public List<Integer> radixSort(List<Integer> integers) {
+        List<Integer> result = integers;
+        for(int bit = 0;bit < 32;++bit) {
+            result = split(result,bit);
         }
         return result;
     }
 
-    public List<List<Integer>> split (List<Integer> list,int i) {
+    public List<Integer> split (List<Integer> integers,int nroBit) {
         List<Integer> zeros = new ArrayList<Integer>();
         List<Integer> ones = new ArrayList<Integer>();
-        List<List<Integer>> result = new ArrayList<List<Integer>>();
-        int mask = 1 << i;
-        for (int n:list) {
-            if ((n & mask) > 0)
-                ones.add(n);
+        List<Integer> result = new ArrayList<>();
+        int mask = 1 << nroBit;
+        for (int number:integers) {
+            if ((number & mask) > 0)
+                ones.add(number);
             else
-                zeros.add(n);
+                zeros.add(number);
         }
-        result.add(ones);
-        result.add(zeros);
+        result.addAll(ones);
+        result.addAll(zeros);
         return result;
     }
 
@@ -44,7 +41,7 @@ public class ConcurRadixSort {
              array) {
             resultado.get(contador).add(n);
             if(contador == numerosDeThreads-1){contador = 0;}
-            else{contador = contador +1 ;}
+            else{contador ++ ;}
         }
         return resultado;
 
@@ -54,5 +51,14 @@ public class ConcurRadixSort {
         for (int i = 0; i < numerosDeThreads; i++) {
             resultado.add(new ArrayList<>());
         }
+    }
+
+    public List<Integer> ordenar(List<Integer> array) {
+        List<List<Integer>> separados = this.separarEnCantThreads(array);
+        this.asignarTareasAThreadPool();
+        return new ArrayList<>();
+    }
+
+    private void asignarTareasAThreadPool() {
     }
 }

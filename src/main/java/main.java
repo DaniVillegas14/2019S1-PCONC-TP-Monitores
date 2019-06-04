@@ -61,18 +61,16 @@ class main {
         /**Prueba RadixSort*/
         ConcurRadixSort concurRadixSort = new ConcurRadixSort(8);
         List<Integer> array = new ArrayList<>();
-        array.add(3);
-        array.add(5);
-        array.add(4);
-        array.add(6);
-        array.add(7);
-        array.add(9);
-        array.add(9);
-        array.add(9);
-        array.add(9);
-        array.add(9);
+        array.add(new Integer(2));
+        array.add(new Integer(3));
+         array.add(new Integer(8));
+      array.add(new Integer(6));
+        array.add(new Integer(4));
+        array.add(new Integer(7));
+        array.add(new Integer(9));
+        array.add(new Integer(2));
 
-        System.out.println(concurRadixSort.separarEnCantThreads(array));
+        System.out.println(concurRadixSort.radixSort(array));
     }
 
 }
