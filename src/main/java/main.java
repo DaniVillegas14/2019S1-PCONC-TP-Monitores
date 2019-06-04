@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 class main {
 
     public static void main(String[] args) throws InterruptedException {
@@ -48,13 +51,28 @@ class main {
               worker.start();*/
 
       /**Prueba para ThreadPool*/
-          ThreadPool threadPool = new ThreadPool(8,10);
+          /*ThreadPool threadPool = new ThreadPool(8,10);
           ThreadPoolTaskProductor productor = new ThreadPoolTaskProductor(threadPool);
 
           productor.start();
           Thread.sleep(4000);
           threadPool.stop();
-          productor.stopThread();
+          productor.stopThread();*/
+        /**Prueba RadixSort*/
+        ConcurRadixSort concurRadixSort = new ConcurRadixSort(8);
+        List<Integer> array = new ArrayList<>();
+        array.add(3);
+        array.add(5);
+        array.add(4);
+        array.add(6);
+        array.add(7);
+        array.add(9);
+        array.add(9);
+        array.add(9);
+        array.add(9);
+        array.add(9);
+
+        System.out.println(concurRadixSort.separarEnCantThreads(array));
     }
 
 }

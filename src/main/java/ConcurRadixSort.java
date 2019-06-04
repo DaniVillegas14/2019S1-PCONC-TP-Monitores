@@ -36,4 +36,23 @@ public class ConcurRadixSort {
         return result;
     }
 
+    public List<List<Integer>> separarEnCantThreads(List<Integer> array) {
+        List<List<Integer>> resultado = new ArrayList<>();
+        agregarListasVacias(resultado,numerosDeThreads);
+        int contador = 0;
+        for (Integer n:
+             array) {
+            resultado.get(contador).add(n);
+            if(contador == numerosDeThreads-1){contador = 0;}
+            else{contador = contador +1 ;}
+        }
+        return resultado;
+
+    }
+
+    private void agregarListasVacias(List<List<Integer>> resultado, int numerosDeThreads) {
+        for (int i = 0; i < numerosDeThreads; i++) {
+            resultado.add(new ArrayList<>());
+        }
+    }
 }
