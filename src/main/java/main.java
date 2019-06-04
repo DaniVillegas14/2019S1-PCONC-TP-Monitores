@@ -68,9 +68,17 @@ class main {
         array.add(new Integer(4));
         array.add(new Integer(7));
         array.add(new Integer(9));
+        array.add(new Integer(14));
+        array.add(new Integer(34));
+        array.add(new Integer(46));
+        array.add(new Integer(66));
+        array.add(new Integer(67));
         array.add(new Integer(2));
+        array.add(new Integer(11));
+        array.add(new Integer(44));
+        array.add(new Integer(36));
 
-        System.out.println(concurRadixSort.radixSort(array));
+        System.out.println(concurRadixSort.radixSortConcur(array));
     }
 
 }

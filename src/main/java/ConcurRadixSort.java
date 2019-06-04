@@ -8,6 +8,18 @@ public class ConcurRadixSort {
     public ConcurRadixSort(int numerosDeThreads) {
         this.numerosDeThreads = numerosDeThreads;
     }
+    public List<Integer> radixSortConcur(List<Integer> integers){
+        List<Integer> result = new ArrayList<>();
+        ThreadPool threadPool = new ThreadPool(numerosDeThreads,100);
+        Barrera barrera = new Barrera(numerosDeThreads+1);
+        List<List<Integer>> tareas = this.separarEnCantThreads(integers);
+        for (List<Integer> tarea :
+                tareas) {
+            threadPool.launch(new RadixSortTask(this, tarea,result,barrera));
+        }
+        barrera.esperar();
+        return result;
+    }
 
     public List<Integer> radixSort(List<Integer> integers) {
         List<Integer> result = integers;
