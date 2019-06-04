@@ -9,30 +9,36 @@ public class ConcurRadixSort {
         this.numerosDeThreads = numerosDeThreads;
     }
     public List<Integer> radixSortConcur(List<Integer> integers){
-        List<Integer> result = new ArrayList<>();
+        List<Integer> result = integers;
         ThreadPool threadPool = new ThreadPool(numerosDeThreads,100);
-        Barrera barrera = new Barrera(numerosDeThreads+1);
-        List<List<Integer>> tareas = this.separarEnCantThreads(integers);
+        Barrera barrera = new Barrera(numerosDeThreads +1);
+        for (int i = 0; i < 32; i++) {
+            List<List<Integer>> tareas = this.separarEnCantThreads(result);
+            encolarTareas(tareas, threadPool,result,i,barrera);
+            barrera.esperar();
+        }
+        return result;
+    }
+
+    private void encolarTareas(List<List<Integer>> tareas, ThreadPool threadPool, List<Integer> result, int nroBit, Barrera barrera) {
         for (List<Integer> tarea :
                 tareas) {
-            threadPool.launch(new RadixSortTask(this, tarea,result,barrera));
+            threadPool.launch(new RadixSortTask(this, tarea,result,nroBit,barrera));
         }
-        barrera.esperar();
-        return result;
     }
 
     public List<Integer> radixSort(List<Integer> integers) {
         List<Integer> result = integers;
         for(int bit = 0;bit < 32;++bit) {
-            result = split(result,bit);
+            //result = split(result,bit);
         }
         return result;
     }
 
-    public List<Integer> split (List<Integer> integers,int nroBit) {
+    public Par split (List<Integer> integers,int nroBit) {
         List<Integer> zeros = new ArrayList<Integer>();
         List<Integer> ones = new ArrayList<Integer>();
-        List<Integer> result = new ArrayList<>();
+        Par result = new Par();
         int mask = 1 << nroBit;
         for (int number:integers) {
             if ((number & mask) > 0)
@@ -40,8 +46,8 @@ public class ConcurRadixSort {
             else
                 zeros.add(number);
         }
-        result.addAll(ones);
-        result.addAll(zeros);
+        result.agregarAUnos(ones);
+        result.agregarACeros(zeros);
         return result;
     }
 
