@@ -92,6 +92,9 @@ class main {
         array.add(new Integer(11));
         array.add(new Integer(44));
         array.add(new Integer(36));
+        array.add(new Integer(1));
+        array.add(new Integer(3));
+        array.add(new Integer(25));
         System.out.println(concurRadixSort.radixSortConcur(array));
 
     }

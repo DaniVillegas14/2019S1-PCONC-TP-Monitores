@@ -24,6 +24,7 @@ public class ConcurRadixSort {
             aux =result.compilarResultado();
             result = new ContenedorDeTareas(tareas.size());
         }
+        threadPool.stop();
         return aux;
     }
 
@@ -63,8 +64,8 @@ public class ConcurRadixSort {
             resultado.get(i).addAll(aux);
             indice = indice + cantidad;
         }
-        if(array.size()-1 > indice)
-        {resultado.get(numerosDeThreads-1).addAll(array.subList(indice,array.size()-1));}
+        if(array.size() > indice)
+        {resultado.get(numerosDeThreads-1).addAll(array.subList(indice,array.size()));}
         return resultado;
     }
 
