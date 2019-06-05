@@ -1,6 +1,6 @@
 public class Barrera  {
     private int nroParaLevantarBarrera;
-    private int contador;
+    private int contador =0;
 
     public Barrera(int nroParaLevantarBarrera) {
         this.nroParaLevantarBarrera = nroParaLevantarBarrera;

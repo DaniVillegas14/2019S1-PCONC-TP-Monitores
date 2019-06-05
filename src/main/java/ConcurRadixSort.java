@@ -4,26 +4,33 @@ import java.util.List;
 public class ConcurRadixSort {
 
     private int numerosDeThreads;
+    private int nroDeTarea = -1;
+    private int cantidadDeTareas;
 
     public ConcurRadixSort(int numerosDeThreads) {
         this.numerosDeThreads = numerosDeThreads;
     }
     public List<Integer> radixSortConcur(List<Integer> integers){
-        List<Integer> result = integers;
+        Barrera barrera;
+        ContenedorDeTareas result = new ContenedorDeTareas(numerosDeThreads);
+        List<Integer> aux = integers;
         ThreadPool threadPool = new ThreadPool(numerosDeThreads,100);
-        Barrera barrera = new Barrera(numerosDeThreads +1);
         for (int i = 0; i < 32; i++) {
-            List<List<Integer>> tareas = this.separarEnCantThreads(result);
+            barrera = new Barrera(numerosDeThreads +1);
+            List<List<Integer>> tareas = this.separarEnCantThreads(aux);
             encolarTareas(tareas, threadPool,result,i,barrera);
+
             barrera.esperar();
+            aux =result.compilarResultado();
+            result = new ContenedorDeTareas(tareas.size());
         }
-        return result;
+        return aux;
     }
 
-    private void encolarTareas(List<List<Integer>> tareas, ThreadPool threadPool, List<Integer> result, int nroBit, Barrera barrera) {
+    private void encolarTareas(List<List<Integer>> tareas, ThreadPool threadPool, ContenedorDeTareas result, int nroBit, Barrera barrera) {
         for (List<Integer> tarea :
                 tareas) {
-            threadPool.launch(new RadixSortTask(this, tarea,result,nroBit,barrera));
+            threadPool.launch(new RadixSortTask(this,tarea,this.getNumeroDeTarea(),result,nroBit,barrera));
         }
     }
 
@@ -71,12 +78,22 @@ public class ConcurRadixSort {
         }
     }
 
-    public List<Integer> ordenar(List<Integer> array) {
+   /* public List<Integer> ordenar(List<Integer> array) {
         List<List<Integer>> separados = this.separarEnCantThreads(array);
         this.asignarTareasAThreadPool();
         return new ArrayList<>();
-    }
+    }*/
 
     private void asignarTareasAThreadPool() {
+    }
+
+    synchronized public int getNumeroDeTarea() {
+        if(nroDeTarea == numerosDeThreads -1){
+            this.nroDeTarea = 0;
+            return nroDeTarea;
+        }
+        else{
+        return ++this.nroDeTarea;
+        }
     }
 }

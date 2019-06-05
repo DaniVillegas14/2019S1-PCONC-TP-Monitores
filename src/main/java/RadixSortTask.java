@@ -3,15 +3,17 @@ import java.util.List;
 
 public class RadixSortTask implements Runnable {
     private ConcurRadixSort concurRadixSort;
-    private List<Integer> tarea;
-    private List<Integer> result;
+    private List<Integer> numeros;
+    private int nroDeLLegada;
+    private ContenedorDeTareas result;
     private int nroBit;
     private Barrera barrera;
 
-    public RadixSortTask(ConcurRadixSort concurRadixSort, List<Integer> tarea, List<Integer> result, int nroBit, Barrera barrera) {
+    public RadixSortTask(ConcurRadixSort concurRadixSort, List<Integer> numeros, int nroDeLLegada, ContenedorDeTareas result, int nroBit, Barrera barrera) {
         this.concurRadixSort = concurRadixSort;
+        this.numeros = numeros;
+        this.nroDeLLegada = nroDeLLegada;
 
-        this.tarea = tarea;
         this.result = result;
         this.nroBit = nroBit;
         this.barrera = barrera;
@@ -19,10 +21,9 @@ public class RadixSortTask implements Runnable {
 
     @Override
     public void run() {
-        Par splitted = concurRadixSort.split(tarea,nroBit);
-        result = new ArrayList<>();
-        result.addAll(splitted.getUnos());
-        result.addAll(splitted.getCeros());
+        System.out.println("llegada:"+nroDeLLegada);
+        Par splitted = concurRadixSort.split(numeros,nroBit);
+        result.agregarTarea(nroDeLLegada,splitted);
         barrera.esperar();
     }
 }

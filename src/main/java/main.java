@@ -79,6 +79,7 @@ class main {
         array.add(new Integer(36));
 
         System.out.println(concurRadixSort.radixSortConcur(array));
+
     }
 
 }
