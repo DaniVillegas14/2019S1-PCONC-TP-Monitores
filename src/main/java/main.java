@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 class main {
 
@@ -61,40 +62,9 @@ class main {
         /**Prueba RadixSort*/
         ConcurRadixSort concurRadixSort = new ConcurRadixSort(8);
         List<Integer> array = new ArrayList<>();
-        array.add(new Integer(2));
-        array.add(new Integer(3));
-         array.add(new Integer(8));
-      array.add(new Integer(6));
-        array.add(new Integer(4));
-        array.add(new Integer(7));
-        array.add(new Integer(9));
-        array.add(new Integer(14));
-        array.add(new Integer(34));
-        array.add(new Integer(4));
-        array.add(new Integer(3));
-        array.add(new Integer(2));
-        array.add(new Integer(2));
-        array.add(new Integer(11));
-        array.add(new Integer(44));
-        array.add(new Integer(36));
-        array.add(new Integer(3));
-        array.add(new Integer(8));
-        array.add(new Integer(6));
-        array.add(new Integer(4));
-        array.add(new Integer(7));
-        array.add(new Integer(9));
-        array.add(new Integer(14));
-        array.add(new Integer(34));
-        array.add(new Integer(4));
-        array.add(new Integer(3));
-        array.add(new Integer(2));
-        array.add(new Integer(2));
-        array.add(new Integer(11));
-        array.add(new Integer(44));
-        array.add(new Integer(36));
-        array.add(new Integer(1));
-        array.add(new Integer(3));
-        array.add(new Integer(25));
+        for (int i = 0; i < 10000; i++) {
+            array.add((int)(Math.random() * 2147483647) + 0);
+        }
         System.out.println(concurRadixSort.radixSortConcur(array));
 
     }
