@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
@@ -60,12 +61,21 @@ class main {
           threadPool.stop();
           productor.stopThread();*/
         /**Prueba RadixSort*/
-        ConcurRadixSort concurRadixSort = new ConcurRadixSort(8);
-        List<Integer> array = new ArrayList<>();
-        for (int i = 0; i < 10000; i++) {
+
+          Long time = new Date().getTime();
+          ConcurRadixSort concurRadixSort = new ConcurRadixSort(300);
+          List<Integer> array = new ArrayList<>();
+          for(int i = 0;i < 500;i++) {
             array.add((int)(Math.random() * 2147483647) + 0);
-        }
-        System.out.println(concurRadixSort.radixSortConcur(array));
+          }
+          System.out.println(concurRadixSort.radixSortConcur(array));
+          System.out.println("El proceso tardo " + (new Date().getTime() - time) + " milisegundos");
+//        ConcurRadixSort concurRadixSort = new ConcurRadixSort(200);
+//        List<Integer> array = new ArrayList<>();
+//        for (int i = 0; i < 10000; i++) {
+//            array.add((int)(Math.random() * 2147483647) + 0);
+//        }
+//        System.out.println(concurRadixSort.radixSortConcur(array));
 
     }
 

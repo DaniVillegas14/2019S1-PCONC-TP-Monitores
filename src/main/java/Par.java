@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Par {
+
     List<Integer> ceros;
     List<Integer> unos;
     public Par() {
@@ -22,4 +23,5 @@ public class Par {
     public void agregarACeros(List<Integer>  lista){
         ceros.addAll(lista);
     }
+
 }
