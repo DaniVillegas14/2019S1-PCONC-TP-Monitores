@@ -8,14 +8,14 @@ public class RadixSortTask implements Runnable {
     private int nroBit;
     private Barrera barrera;
 
-    public RadixSortTask(ConcurRadixSort concurRadixSort, List<Integer> numeros, int nroDeLLegada, ContenedorDeTareas result, int nroBit, Barrera barrera) {
+    public RadixSortTask(ConcurRadixSort concurRadixSort, List<Integer> numeros, int nroDeLLegada, ContenedorDeTareas result, int nroBit) {
         this.concurRadixSort = concurRadixSort;
         this.numeros = numeros;
         this.nroDeLLegada = nroDeLLegada;
 
         this.result = result;
         this.nroBit = nroBit;
-        this.barrera = barrera;
+      //  this.barrera = barrera;
     }
 
     @Override
@@ -23,6 +23,10 @@ public class RadixSortTask implements Runnable {
         System.out.println("llegada:"+nroDeLLegada);
         Par splitted = concurRadixSort.split(numeros,nroBit);
         result.agregarTarea(nroDeLLegada,splitted);
-        barrera.esperar();
+        try {
+            result.compilarResultado(nroDeLLegada);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
     }
 }

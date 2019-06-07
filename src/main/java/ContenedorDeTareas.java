@@ -15,7 +15,12 @@ public class ContenedorDeTareas {
         }
     }
 
-    public List<Integer> compilarResultado() {
+    synchronized public List<Integer> compilarResultado(int nroDeLLegada) throws InterruptedException {
+        while(nroDeLLegada < this.tareas.size() - 1) {
+            System.out.println("TAREA " + nroDeLLegada + " ESTA ESPERANDO");
+            wait();
+        }
+        System.out.println("LLEGO LA ULTIMA TAREA " + nroDeLLegada);
         List<Integer> res = new ArrayList<>();
         List<Integer> ceros = new ArrayList<>();
         for(Par par : tareas){
@@ -23,10 +28,12 @@ public class ContenedorDeTareas {
             ceros.addAll(par.getCeros());
         }
         res.addAll(ceros);
+        notify();
         return res;
     }
 
     synchronized public void agregarTarea(int nroDeLLegada, Par splitted) {
         tareas.set(nroDeLLegada,splitted);
+
     }
 }

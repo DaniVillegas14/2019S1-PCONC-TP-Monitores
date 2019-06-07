@@ -10,28 +10,28 @@ public class ConcurRadixSort {
     public ConcurRadixSort(int numerosDeThreads) {
         this.numerosDeThreads = numerosDeThreads;
     }
-    public List<Integer> radixSortConcur(List<Integer> integers){
-        Barrera barrera;
+    public List<Integer> radixSortConcur(List<Integer> integers) throws InterruptedException {
+      //  Barrera barrera;
         ContenedorDeTareas result = new ContenedorDeTareas(numerosDeThreads);
         List<Integer> aux = integers;
         ThreadPool threadPool = new ThreadPool(numerosDeThreads,100);
         for (int i = 0; i < 32; i++) {
-            barrera = new Barrera(numerosDeThreads +1);
+          //  barrera = new Barrera(numerosDeThreads +1);
             List<List<Integer>> tareas = this.separarEnCantThreads(aux);
-            encolarTareas(tareas, threadPool,result,i,barrera);
+            encolarTareas(tareas, threadPool,result,i);
 
-            barrera.esperar();
-            aux =result.compilarResultado();
+     //       barrera.esperar();
+            aux = result.compilarResultado(this.getNumeroDeTarea());
             result = new ContenedorDeTareas(tareas.size());
         }
         threadPool.stop();
         return aux;
     }
 
-    private void encolarTareas(List<List<Integer>> tareas, ThreadPool threadPool, ContenedorDeTareas result, int nroBit, Barrera barrera) {
+    private void encolarTareas(List<List<Integer>> tareas, ThreadPool threadPool, ContenedorDeTareas result, int nroBit) {
         for (List<Integer> tarea :
                 tareas) {
-            threadPool.launch(new RadixSortTask(this,tarea,this.getNumeroDeTarea(),result,nroBit,barrera));
+            threadPool.launch(new RadixSortTask(this,tarea,this.getNumeroDeTarea(),result,nroBit));
         }
     }
 
