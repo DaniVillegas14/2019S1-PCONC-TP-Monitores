@@ -2,13 +2,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ContenedorDeTareas {
-
     public List<Par> tareas;
-    private Integer esperando;
+    private int contador = 0;
 
     public ContenedorDeTareas(int cantTareas) {
         this.setUp(cantTareas);
-        this.esperando = 0;
     }
 
     private void setUp(int cantTareas) {
@@ -18,11 +16,15 @@ public class ContenedorDeTareas {
         }
     }
 
-    synchronized public List<Integer> compilarResultado() throws InterruptedException {
-        while(esperando < this.tareas.size() - 1) {
-            esperando++;
-            wait();
+    synchronized public List<Integer> compilarResultado() {
+        while (contador < tareas.size()){
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
+        contador = 0;
         List<Integer> res = new ArrayList<>();
         List<Integer> ceros = new ArrayList<>();
         for(Par par : tareas){
@@ -30,12 +32,14 @@ public class ContenedorDeTareas {
             ceros.addAll(par.getCeros());
         }
         res.addAll(ceros);
-        notify();
         return res;
     }
 
     synchronized public void agregarTarea(int nroDeLLegada, Par splitted) {
+        contador++;
         tareas.set(nroDeLLegada,splitted);
-
+        if(contador == tareas.size()){
+            notify();
+        }
     }
 }

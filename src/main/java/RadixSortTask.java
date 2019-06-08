@@ -18,13 +18,8 @@ public class RadixSortTask implements Runnable {
 
     @Override
     public void run() {
-        System.out.println("llegada:" + nroDeLLegada);
-        Par splitted = concurRadixSort.split(numeros, nroBit);
-        result.agregarTarea(nroDeLLegada, splitted);
-        try {
-            result.compilarResultado();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
+        System.out.println("llegada:"+nroDeLLegada);
+        Par splitted = concurRadixSort.split(numeros,nroBit);
+        result.agregarTarea(nroDeLLegada,splitted);
     }
 }

@@ -2,7 +2,4 @@ Sé genero una lista de diez mil números de manera aleatoria para múltiples threa
 Sé hizo pruebas y la cantidad optima de threads a utilizar para ordenar la lista
 es de 250 threads con mi procesador(Intel(R) Core(TM) i5-7200U CPU @ 2.50GHz(4 CPUs), 2.7GHz).
 Esto tarda aproximadamente 1 segundo.
-Sé probo con 1000 threads y esto tarda aproximadamente 8 segundos.
-En el peor de los casos, sé probo con 10000 threads y esto tarda aproximadamente
-14 minutos.
-
+Despues si queremos agregar mas threads, va a tardas mar segundos.
