@@ -63,9 +63,9 @@ class main {
         /**Prueba RadixSort*/
 
           Long time = new Date().getTime();
-          ConcurRadixSort concurRadixSort = new ConcurRadixSort(2);
+          ConcurRadixSort concurRadixSort = new ConcurRadixSort(50);
           List<Integer> array = new ArrayList<>();
-          for(int i = 0;i < 500;i++) {
+          for(int i = 0;i < 100000;i++) {
             array.add((int)(Math.random() * 2147483647) + 0);
           }
           System.out.println(concurRadixSort.radixSortConcur(array));
