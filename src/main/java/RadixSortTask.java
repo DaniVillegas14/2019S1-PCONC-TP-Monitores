@@ -6,7 +6,6 @@ public class RadixSortTask implements Runnable {
     private int nroDeLLegada;
     private ContenedorDeTareas result;
     private int nroBit;
-    private Barrera barrera;
 
     public RadixSortTask(ConcurRadixSort concurRadixSort, List<Integer> numeros, int nroDeLLegada, ContenedorDeTareas result, int nroBit) {
         this.concurRadixSort = concurRadixSort;
@@ -15,16 +14,15 @@ public class RadixSortTask implements Runnable {
 
         this.result = result;
         this.nroBit = nroBit;
-      //  this.barrera = barrera;
     }
 
     @Override
     public void run() {
-        System.out.println("llegada:"+nroDeLLegada);
-        Par splitted = concurRadixSort.split(numeros,nroBit);
-        result.agregarTarea(nroDeLLegada,splitted);
+        System.out.println("llegada:" + nroDeLLegada);
+        Par splitted = concurRadixSort.split(numeros, nroBit);
+        result.agregarTarea(nroDeLLegada, splitted);
         try {
-            result.compilarResultado(nroDeLLegada);
+            result.compilarResultado();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

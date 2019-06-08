@@ -5,23 +5,19 @@ public class ConcurRadixSort {
 
     private int numerosDeThreads;
     private int nroDeTarea = -1;
-    private int cantidadDeTareas;
 
     public ConcurRadixSort(int numerosDeThreads) {
         this.numerosDeThreads = numerosDeThreads;
     }
     public List<Integer> radixSortConcur(List<Integer> integers) throws InterruptedException {
-      //  Barrera barrera;
         ContenedorDeTareas result = new ContenedorDeTareas(numerosDeThreads);
         List<Integer> aux = integers;
         ThreadPool threadPool = new ThreadPool(numerosDeThreads,100);
         for (int i = 0; i < 32; i++) {
-          //  barrera = new Barrera(numerosDeThreads +1);
             List<List<Integer>> tareas = this.separarEnCantThreads(aux);
             encolarTareas(tareas, threadPool,result,i);
 
-     //       barrera.esperar();
-            aux = result.compilarResultado(this.getNumeroDeTarea());
+            aux = result.compilarResultado();
             result = new ContenedorDeTareas(tareas.size());
         }
         threadPool.stop();

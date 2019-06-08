@@ -2,10 +2,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ContenedorDeTareas {
+
     public List<Par> tareas;
+    private Integer esperando;
 
     public ContenedorDeTareas(int cantTareas) {
         this.setUp(cantTareas);
+        this.esperando = 0;
     }
 
     private void setUp(int cantTareas) {
@@ -15,12 +18,11 @@ public class ContenedorDeTareas {
         }
     }
 
-    synchronized public List<Integer> compilarResultado(int nroDeLLegada) throws InterruptedException {
-        while(nroDeLLegada < this.tareas.size() - 1) {
-            System.out.println("TAREA " + nroDeLLegada + " ESTA ESPERANDO");
+    synchronized public List<Integer> compilarResultado() throws InterruptedException {
+        while(esperando < this.tareas.size() - 1) {
+            esperando++;
             wait();
         }
-        System.out.println("LLEGO LA ULTIMA TAREA " + nroDeLLegada);
         List<Integer> res = new ArrayList<>();
         List<Integer> ceros = new ArrayList<>();
         for(Par par : tareas){
